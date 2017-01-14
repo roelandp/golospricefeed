@@ -247,7 +247,7 @@ if __name__ == '__main__':
                     if unix_t >= curr_t:
                         golos_q+= liq_hist[i]["Amount"]
                         btc_q += liq_hist[i]["Summ"]
-                        print("btc "+str(btc_q) + " ---- golos = "+ str(golos_q))
+                        #print("btc "+str(btc_q) + " ---- golos = "+ str(golos_q))
                         pass
                     else:
                         break
