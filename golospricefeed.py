@@ -236,6 +236,25 @@ if __name__ == '__main__':
             except:
                 print("Error in fetching Livecoin market history")
                 pass
+
+    # Liqui.io (trades api seems offline so abusing their ajax call directly: )
+            try:
+                liq_h = requests.get("https://liqui.io/Market/Last/?id=14")
+                liq_hist = liq_h.json()
+
+                for i in range(len(liq_hist)):
+                    unix_t = liq_hist[i]["Time"]
+                    if unix_t >= curr_t:
+                        golos_q+= liq_hist[i]["Amount"]
+                        btc_q += liq_hist[i]["Summ"]
+                        print("btc "+str(btc_q) + " ---- golos = "+ str(golos_q))
+                        pass
+                    else:
+                        break
+            except:
+                print("Error in fetching Liqui.io market history")
+                pass
+
 # Bittrex
             # try:
             #     bt_h = requests.get("https://bittrex.com/api/v1.1/public/getmarkethistory?market=BTC-GOLOS")

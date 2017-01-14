@@ -5,7 +5,8 @@ This script is based upon [@clayop's steemfeed script](https://github.com/clayop
 
 
 ### Supported Exchanges
-* Livecoin 
+* Livecoin
+* Liqui 
 * Bittrex (Not listed yet)
 * Openledger (Not listed yet)
 * Poloniex (Not listed yet)
@@ -47,7 +48,7 @@ Then, edit the `golospricefeed.py` to configure. We have some items under Config
 * `rpc_port`: Your RPC host port
 * `witness`: Enter ***YOUR WITNESS ID*** here
 * `walletpassword`: Enter ***YOUR WALLET PASSWORD*** here or unlock your wallet after executing the `cli_wallet` command stated above and comment all `walletlock()` calls in the code
- 
+
 
 ### Run
 Then, run this code in a separate screen
