@@ -226,6 +226,7 @@ if __name__ == '__main__':
                 li_hist = li_h.json()
                 for i in range(len(li_hist)):
                     unix_t = li_hist[i]["time"]
+                    unix_t += time_adj
                     if unix_t >= curr_t:
                         golos_q+= li_hist[i]["quantity"]
                         btc_q += li_hist[i]["price"] * li_hist[i]["quantity"]
@@ -244,6 +245,7 @@ if __name__ == '__main__':
 
                 for i in range(len(liq_hist)):
                     unix_t = liq_hist[i]["Time"]
+                    unix_t += time_adj
                     if unix_t >= curr_t:
                         golos_q+= liq_hist[i]["Amount"]
                         btc_q += liq_hist[i]["Summ"]
@@ -256,22 +258,42 @@ if __name__ == '__main__':
                 pass
 
 # Bittrex
-            # try:
-            #     bt_h = requests.get("https://bittrex.com/api/v1.1/public/getmarkethistory?market=BTC-GOLOS")
-            #     bt_hist = bt_h.json()
-            #     for i in range(200):
-            #         strf_t = bt_hist["result"][i]["TimeStamp"]
-            #         unix_t = dateutil.parser.parse(strf_t).timestamp()
-            #         unix_t += time_adj
-            #         if unix_t >= curr_t:
-            #             golos_q+= bt_hist["result"][i]["Quantity"]
-            #             btc_q += bt_hist["result"][i]["Total"]
-            #             pass
-            #         else:
-            #             break
-            # except:
-            #     print("Error in fetching Bittrex market history              ")
-            #     pass
+            try:
+                bt_h = requests.get("https://bittrex.com/api/v1.1/public/getmarkethistory?market=BTC-GOLOS")
+                bt_hist = bt_h.json()
+                for i in range(200):
+                    strf_t = bt_hist["result"][i]["TimeStamp"]
+                    unix_t = dateutil.parser.parse(strf_t).timestamp()
+                    unix_t += time_adj
+                    if unix_t >= curr_t:
+                        golos_q+= bt_hist["result"][i]["Quantity"]
+                        btc_q += bt_hist["result"][i]["Total"]
+                        pass
+                    else:
+                        break
+            except:
+                print("Error in fetching Bittrex market history              ")
+                pass
+
+    # Kuna
+            try:
+                kuna_h = requests.get("https://kuna.io/api/v2/trades?market=golbtc")
+                kuna_hist = kuna_h.json()
+
+                for i in range(len(kuna_hist)):
+                    strf_t = kuna_hist[i]["created_at"]
+                    unix_t = dateutil.parser.parse(strf_t).timestamp()
+                    unix_t += time_adj
+                    if unix_t >= curr_t:
+                        golos_q+= float(kuna_hist[i]["volume"])
+                        btc_q += float(kuna_hist[i]["funds"])
+                        #print("btc "+str(btc_q) + " ---- golos = "+ str(golos_q))
+                        pass
+                    else:
+                        break
+            except:
+                print("Error in fetching Kuna market history")
+                pass
 
 # Poloniex
             # try:

@@ -6,8 +6,9 @@ This script is based upon [@clayop's steemfeed script](https://github.com/clayop
 
 ### Supported Exchanges
 * Livecoin
-* Liqui 
-* Bittrex (Not listed yet)
+* Liqui
+* Bittrex
+* Kuna
 * Openledger (Not listed yet)
 * Poloniex (Not listed yet)
 
